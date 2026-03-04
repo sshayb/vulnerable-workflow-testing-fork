@@ -1,20 +1,11 @@
 name: Codex Review
 
 on:
-  pull_request_target:
-    types: [opened, labeled, reopened, ready_for_review]
-    paths-ignore:
-      - '**.md'
-      - '**.rst'
-      - 'LICENSE.txt'
-      - 'doc/**/*.txt'
-      - '**/AUTHORS'
-      - '**/SPONSORS'
-      - '**/TIPS'
+  issues:
+    types: [opened, edited, reopened]
 
 jobs:
   codex-review:
-    if: github.event.pull_request.draft == false || (github.event.action == 'labeled' && contains(github.event.pull_request.labels.*.name, 'codex'))
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -22,17 +13,6 @@ jobs:
       final_message: ${{ steps.run_codex.outputs.final-message }}
 
     steps:
-      - name: Check out PR merge commit
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          ref: refs/pull/${{ github.event.pull_request.number }}/merge
-
-      - name: Fetch base and head refs
-        run: |
-          git fetch --no-tags origin \
-            ${{ github.event.pull_request.base.ref }} \
-            +refs/pull/${{ github.event.pull_request.number }}/head
-
       - name: Run Codex review
         id: run_codex
         uses: openai/codex-action@v1
@@ -40,10 +20,7 @@ jobs:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           allow-bots: true
           prompt: |
-            You are reviewing PR #${{ github.event.pull_request.number }} for ${{ github.repository }}.
-
-            Only review changes introduced by this PR:
-            git log --oneline ${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}
+            You are reviewing issue for ${{ github.repository }}.
 
             Focus on:
             - correctness bugs and regressions
@@ -54,5 +31,5 @@ jobs:
 
             Pull request title and body:
             ----
-            ${{ github.event.pull_request.title }}
+            ${{ github.event.title }}
             ${{ github.event.pull_request.body }}
