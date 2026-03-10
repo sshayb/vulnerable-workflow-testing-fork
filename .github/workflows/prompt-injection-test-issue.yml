@@ -142,10 +142,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Authenticate to GCP using service account key
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_VERTEX_AI_KEY }}
+
       - name: Run Gemini CLI
         uses: google-github-actions/run-gemini-cli@v0
         with:
-          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          # Use Vertex AI instead of Gemini API key
+          use_vertex_ai: "true"
+          gcp_project_id: ${{ secrets.GCP_PROJECT_ID }}
+          gcp_location: "us-central1"
           # Direct prompt from issue - injection vector
           prompt: |
             Analyze this GitHub issue and provide recommendations:
