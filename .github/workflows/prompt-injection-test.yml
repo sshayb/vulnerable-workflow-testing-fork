@@ -25,7 +25,7 @@ jobs:
   claude-code-action:
     name: "Test 1: Claude Code Action"
     runs-on: ubuntu-latest
-    environment: production
+    environment: test
     permissions:
       contents: write
       issues: write
@@ -60,7 +60,7 @@ jobs:
   codex-action:
     name: "Test 2: Codex Action"
     runs-on: ubuntu-latest
-    environment: production
+    environment: test
     permissions:
       contents: write
       issues: write
@@ -92,7 +92,7 @@ jobs:
   codex-action-readonly:
     name: "Test 3: Codex Action (Read-Only)"
     runs-on: ubuntu-latest
-    environment: production
+    environment: test
     permissions:
       contents: read
       issues: read
@@ -122,7 +122,7 @@ jobs:
   run-gemini-cli:
     name: "Test 4: Run Gemini CLI"
     runs-on: ubuntu-latest
-    environment: production
+    environment: test
     permissions:
       contents: write
       issues: write
@@ -157,7 +157,7 @@ jobs:
   pr-agent:
     name: "Test 5: Qodo PR Agent"
     runs-on: ubuntu-latest
-    environment: production
+    environment: test
     permissions:
       contents: write
       issues: write
@@ -184,7 +184,7 @@ jobs:
   baseline-direct-shell:
     name: "Test 6: Baseline - Direct Shell (No AI)"
     runs-on: ubuntu-latest
-    environment: production
+    environment: test
     permissions:
       contents: read
     steps:
