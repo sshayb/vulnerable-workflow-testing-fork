@@ -160,7 +160,7 @@ jobs:
           gcp_project_id: ${{ secrets.GCP_PROJECT_ID }}
           gcp_location: "us-central1"
           # Specify a valid Vertex AI model
-          gemini_model: "gemini-2.0-flash"
+          gemini_model: "gemini-1.5-flash"
           # Direct prompt from issue - injection vector
           prompt: |
             Analyze this GitHub issue and provide recommendations:
