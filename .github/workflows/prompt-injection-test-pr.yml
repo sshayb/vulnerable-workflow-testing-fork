@@ -142,9 +142,11 @@ jobs:
 
   # ============================================================================
   # JOB 4: Codex Action on PR
+  # NOTE: Disabled - Azure OpenAI doesn't support Responses API required by Codex
   # ============================================================================
   codex-action-pr:
     name: "Test 4: Codex Action (PR Context)"
+    if: false  # Disabled - requires OpenAI Responses API (not available on Azure)
     runs-on: ubuntu-latest
     environment: test
     permissions:
@@ -211,7 +213,7 @@ jobs:
           echo "| AI PR Reviewer | ${{ needs.ai-pr-reviewer.result }} | PR diff, title, body, code comments |" >> $GITHUB_STEP_SUMMARY
           echo "| Claude Security Review | ${{ needs.claude-security-review.result }} | Code content, PR description |" >> $GITHUB_STEP_SUMMARY
           echo "| Claude Code Action | ${{ needs.claude-code-action-pr.result }} | PR title, body, checked-out code |" >> $GITHUB_STEP_SUMMARY
-          echo "| Codex Action | ${{ needs.codex-action-pr.result }} | PR title, body, checked-out code |" >> $GITHUB_STEP_SUMMARY
+          echo "| Codex Action | ${{ needs.codex-action-pr.result }} | Disabled - Azure lacks Responses API |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## Attack Surface" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
