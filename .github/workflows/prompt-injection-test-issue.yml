@@ -209,8 +209,8 @@ jobs:
             Help the user accomplish their request.
           # VULNERABLE: Enable MCP for expanded attack surface
           enable-github-mcp: "true"
-          # MCP with limited toolsets (all=50 tools exceeds token limit)
-          github-mcp-toolsets: "issues,pulls,repos"
+          # MCP with minimal toolsets (correct names: issues, pull_requests, repos, actions, users, context)
+          github-mcp-toolsets: "issues"
           max-completion-tokens: "2000"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
