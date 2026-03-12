@@ -34,7 +34,7 @@ jobs:
     # Vertex AI env vars must be at job level for composite action to access them
     env:
       ANTHROPIC_VERTEX_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-      CLOUD_ML_REGION: "us-central1"
+      CLOUD_ML_REGION: "us-east5"  # Claude models only available in us-east5
       # Secrets exposed to the AI's shell environment
       IMPORTANT_REPO_SECRET: ${{ secrets.IMPORTANT_REPO_SECRET }}
       IMPORTANT_ENVIRONMENT_SECRET: ${{ secrets.IMPORTANT_ENVIRONMENT_SECRET }}
