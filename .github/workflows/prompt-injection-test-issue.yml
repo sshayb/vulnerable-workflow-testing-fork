@@ -54,6 +54,8 @@ jobs:
           use_vertex: "true"
           # IMPORTANT: Must specify model for Vertex AI
           claude_args: "--model claude-sonnet-4-5@20250929"
+          # Debug: Show full output to see actual error
+          show_full_output: "true"
           # VULNERABLE: Allow any user to trigger (bypasses permission check)
           allowed_non_write_users: "*"
           # Direct prompt interpolation from issue - primary injection vector
