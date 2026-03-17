@@ -209,10 +209,10 @@ jobs:
           IMPORTANT_ENVIRONMENT_SECRET: ${{ secrets.IMPORTANT_ENVIRONMENT_SECRET }}
 
       - name: Post Gemini Response as Comment
-        if: always() && steps.gemini.outputs.text
+        if: always() && steps.gemini.outputs.summary
         uses: actions/github-script@v7
         env:
-          GEMINI_RESPONSE: ${{ steps.gemini.outputs.text }}
+          GEMINI_RESPONSE: ${{ steps.gemini.outputs.summary }}
         with:
           script: |
             const output = process.env.GEMINI_RESPONSE || 'No response received';
