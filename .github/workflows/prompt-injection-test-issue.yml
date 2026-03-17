@@ -71,11 +71,15 @@ jobs:
       - name: Post Claude Response as Comment
         if: always() && steps.claude.outputs.result
         uses: actions/github-script@v7
+        env:
+          CLAUDE_RESPONSE: ${{ steps.claude.outputs.result }}
         with:
           script: |
+            const output = process.env.CLAUDE_RESPONSE || 'No response received';
+
             const response = `## 🤖 Claude Code Action Response
 
-            ${{ steps.claude.outputs.result }}
+            ${output}
 
             ---
             *Action: anthropics/claude-code-action@v1 | Model: claude-sonnet-4-5*`;
@@ -207,11 +211,15 @@ jobs:
       - name: Post Gemini Response as Comment
         if: always() && steps.gemini.outputs.text
         uses: actions/github-script@v7
+        env:
+          GEMINI_RESPONSE: ${{ steps.gemini.outputs.text }}
         with:
           script: |
+            const output = process.env.GEMINI_RESPONSE || 'No response received';
+
             const response = `## 🤖 Gemini CLI Response
 
-            ${{ steps.gemini.outputs.text }}
+            ${output}
 
             ---
             *Action: google-github-actions/run-gemini-cli@v0 | Model: gemini-2.5-pro*`;
@@ -266,10 +274,13 @@ jobs:
       - name: Post AI Inference Response as Comment
         if: always()
         uses: actions/github-script@v7
+        env:
+          AI_RESPONSE: ${{ steps.ai-inference.outputs.response }}
+          AI_OUTCOME: ${{ steps.ai-inference.outcome }}
         with:
           script: |
-            const output = '${{ steps.ai-inference.outputs.response }}' || 'No response (may have been blocked by content filter)';
-            const outcome = '${{ steps.ai-inference.outcome }}';
+            const output = process.env.AI_RESPONSE || 'No response (may have been blocked by content filter)';
+            const outcome = process.env.AI_OUTCOME;
 
             const response = `## 🤖 AI Inference Response
 
