@@ -176,7 +176,8 @@ jobs:
       pull-requests: write
       id-token: write
     steps:
-      - uses: actions/checkout@v4
+      # NOTE: Intentionally NO checkout - prevents Gemini from analyzing repo files
+      # This forces it to focus only on the issue content in the prompt
 
       # Authenticate to GCP using service account key
       - name: Authenticate to GCP
