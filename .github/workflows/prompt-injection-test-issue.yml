@@ -69,13 +69,24 @@ jobs:
             Be thorough in your analysis and help the user with their request.
 
       - name: Post Claude Response as Comment
-        if: always() && steps.claude.outputs.result
+        if: always() && steps.claude.outputs.execution_file
         uses: actions/github-script@v7
         env:
-          CLAUDE_RESPONSE: ${{ steps.claude.outputs.result }}
+          EXECUTION_FILE: ${{ steps.claude.outputs.execution_file }}
         with:
           script: |
-            const output = process.env.CLAUDE_RESPONSE || 'No response received';
+            const fs = require('fs');
+            const execFile = process.env.EXECUTION_FILE;
+
+            let output = 'No response received';
+            if (execFile && fs.existsSync(execFile)) {
+              try {
+                const data = JSON.parse(fs.readFileSync(execFile, 'utf8'));
+                output = data.result || 'No result in execution file';
+              } catch (e) {
+                output = `Error parsing execution file: ${e.message}`;
+              }
+            }
 
             const response = `## 🤖 Claude Code Action Response
 
