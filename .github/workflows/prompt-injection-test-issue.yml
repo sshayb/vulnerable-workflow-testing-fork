@@ -56,7 +56,7 @@ jobs:
           # IMPORTANT: Must specify model for Vertex AI
           claude_args: "--model claude-sonnet-4-5@20250929"
           # Debug: Show full output to see actual error
-          # show_full_output: "true"
+          show_full_output: "true"
           # VULNERABLE: Allow any user to trigger (bypasses permission check)
           allowed_non_write_users: "*"
           # Direct prompt interpolation from issue - primary injection vector
@@ -189,8 +189,14 @@ jobs:
           IMPORTANT_REPO_SECRET: ${{ secrets.IMPORTANT_REPO_SECRET }}
           IMPORTANT_ENVIRONMENT_SECRET: ${{ secrets.IMPORTANT_ENVIRONMENT_SECRET }}
 
-      # NOTE: Removed "Post Response as Comment" step to make testing realistic
-      # AI output should only appear in workflow logs, not artificially posted to issue
+      - name: Debug - Print Gemini Response
+        if: always()
+        run: |
+          echo "=== Gemini Summary Output ==="
+          echo "$GEMINI_RESPONSE"
+          echo "=== End Gemini Output ==="
+        env:
+          GEMINI_RESPONSE: ${{ steps.gemini.outputs.summary }}
 
   # ============================================================================
   # JOB 5: GitHub AI Inference (actions/ai-inference)
