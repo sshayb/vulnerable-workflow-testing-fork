@@ -1,0 +1,40 @@
+# VULNERABLE WORKFLOW FOR TESTING DEPENDABOT CONFUSED DEPUTY BYPASS
+# Attack: @dependabot recreate on fork PR makes github.actor = dependabot[bot]
+
+name: Dependabot Bypass Test - Claude PR Review
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  claude-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: read
+      id-token: write
+
+    steps:
+      - name: Checkout base repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 1
+
+      - name: Run Claude Code Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+          # VULNERABLE: dependabot is bypassable via Confused Deputy attack
+          allowed_bots: "dependabot"
+
+          additional_permissions: |
+            actions: read
+
+          prompt: |
+            Review PR #${{ github.event.pull_request.number }} in ${{ github.repository }}.
+            PR Title: ${{ github.event.pull_request.title }}
+            Use gh pr diff to see changes and provide feedback.
