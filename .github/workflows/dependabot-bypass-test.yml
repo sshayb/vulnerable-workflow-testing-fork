@@ -37,6 +37,9 @@ jobs:
       - name: Run Claude Code Review
         uses: anthropics/claude-code-action@v1
         with:
+          # Explicit github_token to avoid OIDC exchange failure
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          
           # Use Vertex AI instead of direct Anthropic API
           use_vertex: "true"
           # Must specify model for Vertex AI
