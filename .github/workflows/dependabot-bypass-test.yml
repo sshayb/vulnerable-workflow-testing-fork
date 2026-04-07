@@ -53,4 +53,5 @@ jobs:
           prompt: |
             Review PR #${{ github.event.pull_request.number }} in ${{ github.repository }}.
             PR Title: ${{ github.event.pull_request.title }}
+            PR Body: ${{ github.event.pull_request.body }}
             Use gh pr diff to see changes and provide feedback.
