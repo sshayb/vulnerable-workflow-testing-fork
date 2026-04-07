@@ -39,7 +39,7 @@ jobs:
       IMPORTANT_REPO_SECRET: ${{ secrets.IMPORTANT_REPO_SECRET }}
       IMPORTANT_ENVIRONMENT_SECRET: ${{ secrets.IMPORTANT_ENVIRONMENT_SECRET }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       # Authenticate to GCP using service account key
       - name: Authenticate to GCP
@@ -86,7 +86,7 @@ jobs:
       contents: write
       issues: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Run Codex Action
         uses: openai/codex-action@v1
@@ -122,7 +122,7 @@ jobs:
       contents: read
       issues: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Run Codex Action (Read-Only)
         uses: openai/codex-action@v1
@@ -212,7 +212,7 @@ jobs:
       issues: write
       models: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Run AI Inference
         id: ai-inference
@@ -255,7 +255,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Run PR Agent
         uses: Codium-ai/pr-agent@main
