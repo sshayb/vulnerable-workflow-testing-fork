@@ -62,7 +62,7 @@ jobs:
 
       - name: Checkout repository
         if: steps.check_bot.outputs.has_bot != 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: refs/pull/${{ github.event.pull_request.number }}/merge
           fetch-depth: 0

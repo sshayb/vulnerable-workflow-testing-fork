@@ -35,7 +35,7 @@ jobs:
       pull-requests: write
     steps:
       # VULNERABLE: Checking out attacker-controlled PR head code
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
@@ -71,7 +71,7 @@ jobs:
       security-events: write
     steps:
       # VULNERABLE: Checking out attacker-controlled PR head code
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
@@ -112,7 +112,7 @@ jobs:
       IMPORTANT_ENVIRONMENT_SECRET: ${{ secrets.IMPORTANT_ENVIRONMENT_SECRET }}
     steps:
       # VULNERABLE: Checking out attacker-controlled PR head code
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
@@ -153,7 +153,7 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
